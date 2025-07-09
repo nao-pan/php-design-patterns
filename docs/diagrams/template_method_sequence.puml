@@ -1,0 +1,17 @@
+@startuml template_method_sequence
+
+actor Client
+participant ListDisplay
+participant TableDisplay
+
+Client -> ListDisplay : __construct(data)
+activate ListDisplay
+ListDisplay -> ListDisplay : display()
+deactivate ListDisplay
+
+Client -> TableDisplay : __construct(data)
+activate TableDisplay
+TableDisplay -> TableDisplay : display()
+deactivate TableDisplay
+
+@enduml

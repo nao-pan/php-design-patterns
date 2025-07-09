@@ -1,0 +1,27 @@
+@startuml singleton
+class SingletonSample{
+  -id: string
+  -instance: SingletonSample
+  --
+  -__construct()
+  +getInstance(): SingletonSample
+  +getID(): string
+  +__clone(): void
+}
+
+class Client {
+  +run(): void
+}
+
+Client --> SingletonSample : calls getInstance()
+
+note top of SingletonSample
+  <<singleton>>
+  - 外部から new() 禁止
+  - 複製禁止 (__clone)
+end note
+
+SingletonSample : <<final>>
+SingletonSample : <<static>> getInstance()
+
+@enduml

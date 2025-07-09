@@ -1,0 +1,7 @@
+@startuml sample_diagram
+class User {
+    -id: int
+    -name: string
+    +login()
+}
+@enduml

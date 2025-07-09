@@ -1,0 +1,50 @@
+@startuml template_method_class
+skinparam classAttributeIconSize 0
+
+abstract class AbstractDisplay{
+  -data: array
+  --
+  +__construct(data: mixed)
+  +display()
+  +getData()
+  {abstract} ~displayHeader()
+  {abstract} ~displayBody()
+  {abstract} ~displayFooter()
+}
+
+AbstractDisplay : <<abstract>>
+note top of AbstractDisplay
+  Template method パターンの構成図
+  -抽象クラスが処理の枠組み（テンプレート）を定義
+  -具象クラスが中身を実装する
+end note
+note right of AbstractDisplay::display
+ テンプレートメソッド:
+ displayHeader
+ → displayBody
+ → displayFooter
+ の順で呼び出される
+end note
+
+class ListDisplay{
+  ~displayHeader()
+  ~displayBody()
+  ~displayFooter()
+}
+
+class TableDisplay{
+  ~displayHeader()
+  ~displayBody()
+  ~displayFooter()
+}
+
+class Client{
+  +run()
+}
+
+AbstractDisplay <|-- ListDisplay
+AbstractDisplay <|-- TableDisplay
+Client ..> ListDisplay : create & use
+Client ..> TableDisplay : create & use
+@enduml
+

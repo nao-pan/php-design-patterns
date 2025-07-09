@@ -48,6 +48,6 @@ class SingletonSample
    */
   public final function __clone()
   {
-    throw new RuntimeException('Clone is not allowed against ' . get_class($this));
+    throw new RuntimeException('__cloneメソッドは右記のクラスで禁止されています： ' . get_class($this));
   }
 }
