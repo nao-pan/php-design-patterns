@@ -1,4 +1,4 @@
-@startuml template_method_sequence
+@startuml templateMethodSequenceDiagram
 
 actor Client
 participant ListDisplay

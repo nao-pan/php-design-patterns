@@ -1,0 +1,47 @@
+@startuml factoryMethodClassDiagram
+skinparam classAttributeIconSize 0
+
+class factoryClient
+
+class ReaderFactory{
+  +create(filename: string): Reader
+  -createReader($filename): Reader
+}
+
+interface Reader{
+  +read()
+  +display()
+}
+
+class CSVFileReader{
+  -filename
+  -handler
+  --
+  +__construct(filename: string)
+  +read()
+  +display()
+}
+
+class XMLFileReader{
+  -filename
+  -handler
+  --
+  +__construct(filename: string)
+  +read()
+  +display()
+}
+
+factoryClient-right->ReaderFactory :uses
+Reader<|..CSVFileReader : implements
+Reader<|..XMLFileReader : implements
+ReaderFactory-->CSVFileReader : create
+ReaderFactory-->XMLFileReader : create
+
+note right of ReaderFactory
+Factory Method：
+- create() が呼ばれると
+- createReader() によって
+- 適切な Reader サブクラスを返す
+end note
+
+@enduml

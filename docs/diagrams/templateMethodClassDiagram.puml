@@ -1,4 +1,4 @@
-@startuml template_method_class
+@startuml templateMethodClassDiagram
 skinparam classAttributeIconSize 0
 
 abstract class AbstractDisplay{

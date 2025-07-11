@@ -1,4 +1,4 @@
-@startuml singleton
+@startuml singletonClassDiagram
 class SingletonSample{
   -id: string
   -instance: SingletonSample

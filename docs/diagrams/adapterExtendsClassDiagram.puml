@@ -1,4 +1,4 @@
-@startuml adapter_extends
+@startuml adapterExtendsClassDiagram
 skinparam classAttributeIconSize 0
 
 class ShowFile{
@@ -14,34 +14,31 @@ interface DisplaySourceFile{
 }
 
 class DisplaySourceFileImpl{
-  -show_file : ShowFile
-  --
   +__construct(filename: string)
   +display()
 }
 class Client
 
-DisplaySourceFile <|.up. DisplaySourceFileImpl
-DisplaySourceFileImpl --> ShowFile : uses
 
+ShowFile <|-up- DisplaySourceFileImpl
+DisplaySourceFile <|.up. DisplaySourceFileImpl
 Client -right-> DisplaySourceFileImpl
 
 note right of DisplaySourceFileImpl
-Adapter クラス（委譲型）：
-- ShowFile を内部に保持
-- DisplaySourceFile を実装
+Adapter クラス（継承型）：
+- 既存の ShowFile を継承
+- 新しい DisplaySourceFile を実装
 - クライアントは display() を通じて利用
 end note
 
 note bottom of ShowFile
 ShowFile クラス(継承元) :
 - 多数の使用実績あり
-- 再利用したいが変更不可
+- 再利用したい
 end note
 
 note bottom of DisplaySourceFile
 DisplaySourceFile クラス(インターフェース) :
-- クライアントにとって簡単なAPI
-- 複数のアダプタで使いまわせる
+- ディスプレイメソッドで記述を簡単にしたいクラス
 end note
 @enduml

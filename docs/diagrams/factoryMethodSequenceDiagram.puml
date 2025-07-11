@@ -1,0 +1,29 @@
+@startuml factoryMethodSequenceDiagram
+title FactoryMethodパターンシーケンス図
+
+actor Client
+
+participant ReaderFactory
+participant CSVFileReader as CSVReader
+participant Reader
+
+Client -> ReaderFactory : create("music.csv")
+activate ReaderFactory
+
+ReaderFactory -> CSVReader : new(filename)
+activate CSVReader
+ReaderFactory <--CSVReader : instance as Reader
+deactivate CSVReader
+
+ReaderFactory --> Client : return Reader
+deactivate ReaderFactory
+
+Client -> Reader : read()
+Client -> Reader : display()
+
+note right of Reader
+インターフェース Reader を通じて操作
+- 実装に依存しない柔軟な呼び出し
+end note
+
+@enduml
