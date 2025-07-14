@@ -1,0 +1,48 @@
+@startuml facadeSequenceDiagram
+title 
+Facadeパターンシーケンス図
+学習用のために、DAOクラスは実務レベルよりかなり簡略化されている
+詳細は下記コメントに
+end title
+
+actor Client
+participant OrderManager
+participant ItemDao
+participant OrderDao
+participant Order
+
+Client->OrderManager : order(Order)
+activate OrderManager
+
+OrderManager->ItemDao : getInstance()
+activate ItemDao
+OrderManager<-- ItemDao : instance
+deactivate ItemDao
+
+OrderManager -> Order : getItems
+activate Order
+Order --> OrderManager : [OrderItem1, OrderItem2, ...]
+deactivate Order
+
+loop for each OrderItem
+  OrderManager -> ItemDao : setAside(orderItem)
+end
+
+OrderManager -> OrderDao : createOrder(order)
+activate OrderDao
+OrderDao --> OrderManager : void
+deactivate OrderDao
+
+OrderManager --> Client : (完了)
+deactivate OrderManager
+
+note over ItemDao
+本来、setAside() は DAO の責務ではなく
+在庫サービスのようなドメインサービスに配置するのが望ましい
+end note
+
+note over OrderDao
+表示用のHTML生成は DAO の役割ではない
+→ Presenter や ViewModel に委譲するべき
+end note
+@enduml

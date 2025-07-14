@@ -1,0 +1,52 @@
+@startuml facadeSequenceDiagramDetailed
+title Facade Pattern シーケンス図（Order処理＋OrderItem/Item）
+
+actor Client
+participant OrderManager
+participant ItemDao
+participant Order
+participant OrderItem
+participant Item
+participant OrderDao
+
+Client -> OrderManager : order(order)
+activate OrderManager
+
+OrderManager -> ItemDao : getInstance()
+activate ItemDao
+OrderManager <-- ItemDao : instance
+deactivate ItemDao
+
+OrderManager -> Order : getItems()
+activate Order
+Order --> OrderManager : [OrderItem1, OrderItem2, ...]
+deactivate Order
+
+loop for each OrderItem
+  OrderManager -> OrderItem : getItem()
+  activate OrderItem
+  OrderItem --> OrderManager : item
+  deactivate OrderItem
+
+  OrderManager -> Item : getId() / getName() / getPrice()
+  activate Item
+  Item --> OrderManager : 商品情報
+  deactivate Item
+
+  OrderManager -> ItemDao : setAside(orderItem)
+end
+
+OrderManager -> OrderDao : createOrder(order)
+activate OrderDao
+OrderDao --> OrderManager : void
+deactivate OrderDao
+
+OrderManager --> Client : (完了)
+deactivate OrderManager
+
+note right of OrderDao
+OrderDao
+注文情報を表示（ディスプレイ）するためのクラス
+Orderクラスの情報を参照し、html形式に変換
+end note
+@enduml

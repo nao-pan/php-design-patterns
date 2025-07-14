@@ -1,0 +1,79 @@
+@startuml facadeClassDiagram
+skinparam classAttributeIconSize 0
+left to right direction
+class Client
+
+class OrderManager{
+  {static}+order(Order: order): void
+}
+
+package "Order SubSystems"{
+  class OrderDao{
+    {static}+createOrder(Order: order)
+  }
+
+  class ItemDao{
+    {static}-instance
+    -items
+    --
+    {static}+getInstance()
+    +findById(int: id)
+    +setAside(OrderItem)
+    +__clone
+    }
+
+
+  class Order{
+    -items
+    +addItem(OrderItem)
+    +getItems()
+  }
+
+
+  class OrderItem{
+    -Item item
+    -int amount
+    --
+    +getItem()
+    +getAmount()
+  }
+
+  class Item{
+    -int id
+    -string name
+    -int price
+    --
+    +getId()
+    +getName()
+    +getPrice()
+  }
+}
+
+Client-right->OrderManager:use
+OrderManager..>ItemDao
+OrderManager..>OrderDao
+OrderManager..>Order
+Order*-->OrderItem
+OrderItem*-->Item
+
+note bottom of OrderManager
+【注釈：学習用】
+Facade として呼び出し口の役割を担うが、
+本来はユースケース単位の統合処理も行う。
+end note
+note right of OrderDao
+【注釈：学習用】
+本来は永続化専用の DAO にするのが望ましい。
+今回は表示用HTMLの生成も含まれている。
+end note
+
+note right of ItemDao
+【注釈：学習用】
+在庫引当のロジックを含んでいるが、
+本来は Service層に移すのが適切。
+end note
+
+
+
+
+
