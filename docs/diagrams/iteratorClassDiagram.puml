@@ -1,0 +1,38 @@
+@startuml iteratorClassDiagram
+skinparam classAttributeIconSize 0
+
+class iteratorClient{
+  +main()
+}
+
+class Employee{
+  -name
+  -age
+  -job
+  --
+  +getName
+  +getAge
+  +getJob
+}
+
+class Employees{
+  -employees: ArrayObject
+  --
+  +add(Employee $employee)
+  +getIterator():FilterIterator
+}
+
+class SalesmanIterator{
+  +__construct(Iterator $iterator)
+  +accept():bool
+}
+
+iteratorClient..>Employees:use
+iteratorClient..>SalesmanIterator:use
+SalesmanIterator..>Employees:wraps
+Employees-right->Employee
+
+note top of SalesmanIterator
+  -FilterIteratorを継承したクラス
+  -acceptメソッドはjobが'sales'の情報のみ取り出すフィルター
+end note
