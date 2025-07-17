@@ -6,5 +6,20 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\abstract_factory\\CSVDaoFactory' => $baseDir . '/abstract_factory/CSVDaoFactory.php',
+    'App\\abstract_factory\\CSVItemDao' => $baseDir . '/abstract_factory/CSVItemDao.php',
+    'App\\abstract_factory\\CSVOrderDao' => $baseDir . '/abstract_factory/CSVOrderDao.php',
+    'App\\abstract_factory\\DaoFactory' => $baseDir . '/abstract_factory/DaoFactory.php',
+    'App\\abstract_factory\\DbConnection' => $baseDir . '/abstract_factory/DbConnection.php',
+    'App\\abstract_factory\\Item' => $baseDir . '/abstract_factory/Item.php',
+    'App\\abstract_factory\\ItemDao' => $baseDir . '/abstract_factory/ItemDao.php',
+    'App\\abstract_factory\\MockFactory' => $baseDir . '/abstract_factory/MockFactory.php',
+    'App\\abstract_factory\\MockItemDao' => $baseDir . '/abstract_factory/MockItemDao.php',
+    'App\\abstract_factory\\MockOrderDao' => $baseDir . '/abstract_factory/MockOrderDao.php',
+    'App\\abstract_factory\\MySqlDaoFactory' => $baseDir . '/abstract_factory/MySqlDaoFactory.php',
+    'App\\abstract_factory\\MySqlItemDao' => $baseDir . '/abstract_factory/MySqlItemDao.php',
+    'App\\abstract_factory\\MySqlOrderDao' => $baseDir . '/abstract_factory/MySqlOrderDao.php',
+    'App\\abstract_factory\\Order' => $baseDir . '/abstract_factory/Order.php',
+    'App\\abstract_factory\\OrderDao' => $baseDir . '/abstract_factory/OrderDao.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
 );

@@ -9,18 +9,33 @@ class ComposerStaticInit2bd8030ddbb3c7175cdd7cb4168b500b
     public static $prefixLengthsPsr4 = array (
         'A' => 
         array (
-            'App\\' => 4,
+            'App\\abstract_factory\\' => 21,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'App\\' => 
+        'App\\abstract_factory\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/php-design-pattern',
+            0 => __DIR__ . '/../..' . '/abstract_factory',
         ),
     );
 
     public static $classMap = array (
+        'App\\abstract_factory\\CSVDaoFactory' => __DIR__ . '/../..' . '/abstract_factory/CSVDaoFactory.php',
+        'App\\abstract_factory\\CSVItemDao' => __DIR__ . '/../..' . '/abstract_factory/CSVItemDao.php',
+        'App\\abstract_factory\\CSVOrderDao' => __DIR__ . '/../..' . '/abstract_factory/CSVOrderDao.php',
+        'App\\abstract_factory\\DaoFactory' => __DIR__ . '/../..' . '/abstract_factory/DaoFactory.php',
+        'App\\abstract_factory\\DbConnection' => __DIR__ . '/../..' . '/abstract_factory/DbConnection.php',
+        'App\\abstract_factory\\Item' => __DIR__ . '/../..' . '/abstract_factory/Item.php',
+        'App\\abstract_factory\\ItemDao' => __DIR__ . '/../..' . '/abstract_factory/ItemDao.php',
+        'App\\abstract_factory\\MockFactory' => __DIR__ . '/../..' . '/abstract_factory/MockFactory.php',
+        'App\\abstract_factory\\MockItemDao' => __DIR__ . '/../..' . '/abstract_factory/MockItemDao.php',
+        'App\\abstract_factory\\MockOrderDao' => __DIR__ . '/../..' . '/abstract_factory/MockOrderDao.php',
+        'App\\abstract_factory\\MySqlDaoFactory' => __DIR__ . '/../..' . '/abstract_factory/MySqlDaoFactory.php',
+        'App\\abstract_factory\\MySqlItemDao' => __DIR__ . '/../..' . '/abstract_factory/MySqlItemDao.php',
+        'App\\abstract_factory\\MySqlOrderDao' => __DIR__ . '/../..' . '/abstract_factory/MySqlOrderDao.php',
+        'App\\abstract_factory\\Order' => __DIR__ . '/../..' . '/abstract_factory/Order.php',
+        'App\\abstract_factory\\OrderDao' => __DIR__ . '/../..' . '/abstract_factory/OrderDao.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 

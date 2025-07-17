@@ -1,4 +1,5 @@
 <?php
+
 namespace App\abstract_factory;
 
 class CSVDaoFactory implements DaoFactory

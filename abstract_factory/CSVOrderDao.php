@@ -1,4 +1,5 @@
 <?php
+
 namespace App\abstract_factory;
 
 class CSVOrderDao implements OrderDao
@@ -19,7 +20,7 @@ class CSVOrderDao implements OrderDao
             $item_ids = trim(substr($buffer, 10));
 
             $order = new Order($order_id);
-            foreach (split(',', $item_ids) as $item_id) {
+            foreach (explode(',', $item_ids) as $item_id) {
                 $item = $item_dao->findById($item_id);
                 if (!is_null($item)) {
                     $order->addItem($item);

@@ -1,12 +1,11 @@
 <?php
+
 namespace App\abstract_factory;
 
-use PDO;
-
-class MySqlItemDao implements ItemDao
+class CSVItemDao implements ItemDao
 {
-    private $items;
-    public function __construct(PDO $pdo)
+    private array $items;
+    public function __construct()
     {
         $fp = fopen('item_data.txt', 'r');
 
