@@ -1,0 +1,124 @@
+@startuml abstractFactoryClassDiagram
+skinparam classAttributeIconSize 0
+
+class client
+package factory{
+  package abstractFactory{
+    interface DaoFactory{
+      +createItemDao()
+      +createOrderDao()
+    }
+
+    interface OrderDao{
+      +findById(int $order_id)
+    }
+
+    interface ItemDao{
+      +findById(int $item_id)
+    }
+  }
+
+
+
+  package MockFactory{
+    class MockFactory{
+      +createItemDao():MockItemDao
+      +createOrderDao():MockOrderDao
+    }
+    class MockOrderDao{
+      +findById(int $order_id):Order
+    }
+    class MockItemDao{
+      +findById(int $item_id)
+    }
+    MockFactory..|>DaoFactory
+    MockOrderDao..|>OrderDao
+    MockItemDao..|>ItemDao
+  }
+
+  package CSVFactory{
+    class CSVDaoFactory{
+      +createItemDao():CSVItemDao
+      +createOrderDao():CSVOrderDao
+    }
+    class CSVItemDao{
+      -items:array
+      --
+      +__construct()
+      +findById(int $item_id)
+    }
+    class CSVOrderDao{
+      -orders
+      --
+      +__construct(ItemDao $item_dao)
+      +findById(int $order_id):Order
+    }
+    CSVDaoFactory..|>DaoFactory
+    CSVOrderDao..|>OrderDao
+    CSVItemDao..|>ItemDao
+    CSVOrderDao-->ItemDao : inject
+  }
+  package factory.MySqlFactory {
+    class MySqlFactory{
+      +createItemDao():MySqlItemDao
+      +createOrderDao():MySqlOrderDao
+    }
+    class MySqlOrderDao{
+      -pdo
+      -item_dao
+      --
+      +__construct(ItemDao $item_dao, PDO $pdo)
+      +findById(int $order_id):Order
+    }
+    class MySqlItemDao{
+      -pdo
+      --
+      +__construct(PDO pdo)
+      +findById(int $item_id)
+    }
+    package DbConnection{
+      class DbConnection{
+        +{static}getConnection():PDO
+      }
+    }
+    MySqlFactory..|>DaoFactory
+    MySqlItemDao..|>ItemDao
+    MySqlOrderDao..|>OrderDao
+    MySqlOrderDao-->ItemDao : inject
+  }
+
+  package factory.DomainModel{
+    class Order{
+      -id
+      -items
+      --
+      +__construct(int $id)
+      +addItem(Item $item)
+      +getItems()
+      +getId()
+    }
+
+    class Item{
+      -id
+      -name
+      --
+      +__construct($id,$name)
+      +getId()
+      +getName()
+    }
+    Order o-- Item : items
+    OrderDao..>Order : returns
+    ItemDao..>Item : returns
+  }
+
+  client..>OrderDao : calls
+  client..>ItemDao : calls
+  DaoFactory ..> OrderDao : creates
+  DaoFactory ..> ItemDao : creates
+  abstractFactory -up- CSVFactory
+  abstractFactory -right-MySqlFactory
+  abstractFactory -down- MockFactory
+  abstractFactory -left- DomainModel
+}
+client..>DaoFactory : uses
+@enduml
